@@ -2,6 +2,8 @@ import { Server } from "socket.io";
 
 const io = new Server({ /* options */ });
 
+/* test du commit */
+
 const players = []
 
 io.on("connection", (socket) => {
