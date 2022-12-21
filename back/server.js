@@ -1,21 +1,15 @@
 import { Server } from "socket.io";
+import { createServer } from "http";
+import { onConnect } from "./serverActions.js";
+import { createGame } from "./gameActions.js";
 
-const io = new Server({ /* options */ });
-
-/* test du commit */
-
-const players = []
-
-io.on("connection", (socket) => {
-  console.log('User connected: ' + socket.id);
-  socket.emit('currentPlayers',players);
-  socket.broadcast.emit('newPlayer',players[socket.id]);
-
-  socket.on('disconnect', () => {
-    console.log('User disconnected: ' + socket.id);
-    delete players[socket.id];
-    io.emit('disconnect', socket.id);
-  })
+const httpServer = createServer();
+const io = new Server(httpServer, {
+  cors: {
+    origin: "*"
+  }
 });
+
+io.on("connection", onConnect )
 
 io.listen(3000);

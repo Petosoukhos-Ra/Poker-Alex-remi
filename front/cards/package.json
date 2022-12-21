@@ -1,29 +1,16 @@
 {
-  "name": "back",
-  "type": "module",
+  "name": "front",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "volta":"volta use node; volta use npm",
-    "start": "nodemon server.js",
+    "start": "nodemon `which http-server`",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@texasholdem/shared": "^1.0.0",
-    "chai": "^4.3.6",
-    "dotenv": "^16.0.3",
-    "mocha": "^10.1.0",
-    "shared": "^1.0.0",
-    "socket.io": "^4.5.2",
-    "stacked": "^1.1.1"
-  },
   "devDependencies": {
+    "http-server": "^14.1.1",
     "nodemon": "^2.0.20"
-  },
-  "directories": {
-    "test": "tests"
   },
   "repository": {
     "type": "git",

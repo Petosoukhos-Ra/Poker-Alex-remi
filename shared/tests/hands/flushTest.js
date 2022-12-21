@@ -1,26 +1,25 @@
 import { expect } from "chai";
-import { buildDeck } from "../deck.js";
-import { makeHand } from "../handMaker.js";
+import { buildDeck } from "../../deck.js";
+import { makeHand } from "../../handMaker.js";
 
-describe('poker hands comparison', () => {
+describe('poker hands creation', () => {
     
-    it('simple pair', () => {
+    it('manages flush', () => {
         const deck = buildDeck()
         const cards = []
+        cards.push(getCard(deck,5,'diamond'))
         cards.push(getCard(deck,13,'diamond'))
-        cards.push(getCard(deck,2,'club'))
-        cards.push(getCard(deck,4,'heart'))
-        cards.push(getCard(deck,13,'club'))
-        cards.push(getCard(deck,8,'spade'))
+        cards.push(getCard(deck,2,'diamond'))
+        cards.push(getCard(deck,11,'diamond'))
+        cards.push(getCard(deck,1,'diamond'))
         
         expect(cards).to.be.a('Array')
         expect(cards.length).to.equal(5)
 
         const hand = makeHand(cards)
-        expect(hand.type).to.equal('pair')
+
+        expect(hand.type).to.equal('flush')
         expect(hand.rank).to.equal(13)
-        expect(hand.kickers).to.be.a('Array')
-        expect(hand.kickers[0].rank).to.equal(8)
     });
 });
 
