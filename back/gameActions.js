@@ -1,7 +1,7 @@
 import { buildDeck } from "shared/deck.js";
 
 function createGame(players) {
-    let game = { started: false, players, deck: buildDeck(), dealer: null, currentPlayer: null }
+    let game = { started: false, players, deck: buildDeck(), dealer: null, currentPlayer: null, round: null }
     return game
 }
 
@@ -52,28 +52,45 @@ function startGame(game) {
 
 function dealAllPocketCards(game) {
     for (let player of game.players) {
-        // if (player != undefined) {
+        // if (player != undefined) {   
         console.log("deal", player.name);
-        dealFlop(game)
-        broadcast(game, "flop",game.flop);
-
-            dealPocketCards(game, player);
-            player.socket.emit("deal", { seat: player.seat, cards: player.cards });
-            broadcast(game, "deal", { seat: player.seat }, player.seat);
+        dealPocketCards(game, player);
+        player.socket.emit("deal", { seat: player.seat, cards: player.cards });
+        broadcast(game, "deal", { seat: player.seat }, player.seat);
         // }
     }
 }
 
+function dealTheCardsFlop (game){
+    dealFlop(game);
+    broadcast(game, "flop",game.flop)
+}
+
+function dealTheCardsTurn (game){
+    dealTurn(game)
+    broadcast(game, "turn",game.turn);
+}
 
 function dealPocketCards(game, player) {
     let cards = [game.deck.pop(), game.deck.pop()];
     game.players.find((p)=>p.seat===player.seat).cards = cards;
 }
+
 function dealFlop(game) {
     let flop = [game.deck.pop(), game.deck.pop(), game.deck.pop()];
     game.flop = flop;
 }
 
+function dealTurn(game) {
+    let turn = [game.deck.pop()];
+    game.turn = turn;
+}
+/* 
+function dealRiver(game) {
+    let river = [game.deck.pop()];
+    game.river = river;
+}
+ */
 
 function broadcast(game, event, data, exceptSeat) {
     for (let player of game.players) {
@@ -91,4 +108,4 @@ function roundIsOver(game) {
     return bets.every((b) => b === max)
 }
 
-export { createGame, listFreeSeats, removePlayer, updateStack, startGame, broadcast, dealAllPocketCards, getNextPlayer, roundIsOver }
+export { createGame, listFreeSeats, removePlayer, updateStack, startGame, broadcast, dealAllPocketCards, dealTheCardsFlop, dealTheCardsTurn, getNextPlayer, roundIsOver }

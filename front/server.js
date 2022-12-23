@@ -59,6 +59,11 @@ function createServer(scene) {
     server.on("flop", (data) => {
             scene.dealFlop(data)
     })
+
+    server.on("turn", (data) => {
+        scene.dealTurn(data)
+    })
+
     server.on("winners", (data) => {
         console.log("winners", data);
         if (data.map((w)=>w.seat).includes(scene.player.seat)) {

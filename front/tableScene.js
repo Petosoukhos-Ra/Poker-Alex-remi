@@ -37,20 +37,13 @@ class PokerTable extends Phaser.Scene {
         seats[9] = { x: 200, y: 450, cardsSprites: [] }
         this.seats = seats
 
-        let flop = []
-        flop[0] = { x: 200, y: 370, cardsSprite: [] }
-        flop[1] = { x: 280, y: 370, cardsSprite: [] }
-        flop[2] = { x: 360, y: 370, cardsSprite: [] }
-
-        this.flop = flop
-
-        /* let turn = []
-        turn[0] = { x: 440, y: 370, cardsSprite: [] }
-        this.turn = turn
-
-        let river = []
-        river[0] = { x: 200, y: 370, cardsSprite: [] }
-        this.river = river */
+        let cartes = []
+        cartes[0] = { x: 200, y: 370, cardsSprite: [] }
+        cartes[1] = { x: 280, y: 370, cardsSprite: [] }
+        cartes[2] = { x: 360, y: 370, cardsSprite: [] }
+        cartes[3] = { x: 440, y: 370, cardsSprite: [] }
+        cartes[4] = { x: 520, y: 370, cardsSprite: [] }
+        this.cartes = cartes
 
         this.server = createServer(this)
     }
@@ -177,28 +170,34 @@ class PokerTable extends Phaser.Scene {
         })
     }
 
-    dealFlop(flop) {
+    dealFlop(cartes) {
         let scale = cardParams.opponentScale
-        let card1 = this.createCard(flop[0], scale)
-        this.flop[0].cardsSprite = card1
-        this.dealCard(card1, this.flop[0].x, this.flop[0].y, () => {
-            let card2 = this.createCard(flop[1], scale)
-            this.flop[1].cardsSprite = card2
-            this.dealCard(card2, this.flop[1].x, this.flop[1].y, () => {
-                let card3 = this.createCard(flop[2], scale)
-                this.flop[2].cardsSprite = card3
-                this.dealCard(card3, this.flop[2].x, this.flop[2].y, () => {
-                    let card4 = this.createCard(flop[3], scale)
-                    this.flop[3].cardsSprite = card4
-                    this.dealCard(card4, this.flop[3].x, this.flop[3].y, () => {
-                        let card5 = this.createCard(flop[4], scale)
-                        this.flop[4].cardsSprite = card5
-                        this.dealCard(card5, this.flop[4].x, this.flop[4].y)
-                    })
-                })
+        let card1 = this.createCard(cartes[0], scale)
+        this.cartes[0].cardsSprite = card1
+        this.dealCard(card1, this.cartes[0].x, this.cartes[0].y, () => {
+            let card2 = this.createCard(cartes[1], scale)
+            this.cartes[1].cardsSprite = card2
+            this.dealCard(card2, this.cartes[1].x, this.cartes[1].y, () => {
+                let card3 = this.createCard(cartes[2], scale)
+                this.cartes[2].cardsSprite = card3
+                this.dealCard(card3, this.cartes[2].x, this.cartes[2].y)
             })
         })
+
     }
+
+    dealTurn(cartes) {
+        let card4 = this.createCard(cartes[3], scale)
+        this.cartes[3].cardsSprite = card4
+        this.dealCard(card4, this.cartes[3].x, this.cartes[3].y)
+        }
+
+    /* dealRiver(cartes) {
+        let card5 = this.createCard(cartes[4], scale)
+        this.cartes[4].cardsSprite = card5
+        this.dealCard(card5, this.cartes[4].x, this.cartes[4].y)
+        } */
+
 
     foldCards(seat) {
 

@@ -30,6 +30,13 @@ function byRank(c1, c2) {
     return c2.rank - c1.rank
 }
 
+function isPair(c1, c2) {
+    if (c1.rank === c2.rank) {
+        return 1
+    }
+    return false
+}
+
 function isQuad(counts) {
     return false
 }
@@ -43,10 +50,6 @@ function isThreeOfAKind(counts) {
 }
 
 function isDoublePair(counts) {
-    return false
-}
-
-function isPair(counts) {
     return false
 }
 

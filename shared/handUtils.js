@@ -36,11 +36,20 @@ function buildPair(deck) {
 }
 
 function buildDoublePair(deck) {
-   
+        /* let pair = buildPair(deck)
+        hand.sort(byRank)
+        let idx = deck.findIndex((c) => c.rank === hand[0].rank)
+        let tmp = hand[1]
+        hand[1] = deck.splice(idx, 1)[0]
+        return hand
+        */
+    
+    //let pair = buildPair(deck)
+
 }
 
 function buildThreeOfAKind(deck) {
-   
+
 }
 
 function buildQuad(deck) {

@@ -1,4 +1,4 @@
-import { broadcast, createGame, dealAllPocketCards, getNextPlayer, listFreeSeats, removePlayer, roundIsOver, startGame, updateStack } from "./gameActions.js";
+import { broadcast, createGame, dealAllPocketCards, dealTheCardsGame, dealTheCardsFlop, dealTheCardsTurn, getNextPlayer, listFreeSeats, removePlayer, roundIsOver, startGame, updateStack } from "./gameActions.js";
 import { findBestHand,compareHands } from "shared/handsComparator.js";
 import { makeHand } from "shared/handMaker.js";
 
@@ -31,6 +31,8 @@ let onConnect = (socket) => {
         game = createGame(readyPlayers)
         startGame(game)
         dealAllPocketCards(game)
+        //dealTheCardsGame(game) //distribue les cartes sur le plateau de jeux
+        dealTheCardsFlop(game) //distribue les cartes sur le plateau de jeux
         game.currentPlayer.socket.emit("active")
       }
     }
@@ -49,12 +51,17 @@ let onConnect = (socket) => {
     socket.emit("unactive")
     broadcast(game, "bet", { seat, amount, stack: game.currentPlayer.stack, bet: game.currentPlayer.bet })
     // game.currentPlayer.bet += amount
-    if (roundIsOver(game)) {
-      console.log("find winner");
-      broadcast(game,"game-over")
+    if (roundIsOver(game) && game.cumul === 0) {
+      // game.cumul += 1
+      // broadcast(game,"game-over")
+      // console.log("Le premier round est finie...");
+       
+      // 
+      // 
+      /* console.log("find winner");
+      broadcast(game,"game-over") */
       game.pot = 0
       for (let player of game.players) {
-
         player.hand = makeHand([...player.cards, ...game.flop])
         console.log("hand", player.hand);
         game.pot += player.bet
