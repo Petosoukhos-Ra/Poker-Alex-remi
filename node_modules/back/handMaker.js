@@ -5,25 +5,45 @@ function makeHand(origCards) {
     //Exemple:
     let counts = countPairs(origCards)
     if (isPair(counts)) {
-        return makePair(cardsByRank) // à créer de la meme maniere que make single card
+        const hand = {}
+        hand.type = 'pair'
+        hand.rank = cardsByRank[0].rank
+        hand.kickers = cardsByRank.filter((c) => c.rank !== hand.rank)
+        return hand
     }
     if (isDoublePair(counts)) {
-        return makeDoublePair(cardsByRank)
+        const hand = {}
+        hand.type = 'double'
+        console.log("cardsByRank = ",cardsByRank)
+        console.log("counts = ",counts)
+        hand.rank = cardsByRank[0].rank
+        hand.sideRank = cardsByRank[3].rank
+        hand.kickers = cardsByRank.filter((c) => c.rank !== hand.rank).filter((c) => c.rank !== hand.sideRank)
+        return hand
     }
     if (isThreeOfAKind(counts)) {
-        return makeThreeOfAKind(cardsByRank)
+        const hand = {}
+        hand.type = 'three'
+        hand.rank = cardsByRank[0].rank
+        hand.kickers = cardsByRank.filter((c) => c.rank !== hand.rank)
+        return hand
     }
     if (isQuad(counts)) {
-        return makeQuad(cardsByRank)
+        const hand = {}
+        hand.type = 'quad'
+        hand.rank = cardsByRank[0].rank
+        hand.kickers = cardsByRank.filter((c) => c.rank !== hand.rank)
+        return hand
     }
     if (isFullHouse(counts)) {
-        return makeFullHouse(cardsByRank)
-    }
-    if (isFlush(counts)) {
-        return makeFlush(cardsByRank)
-    }
-    if (isStraight(counts)) {
-        return makeStraight(cardsByRank)
+        const hand = {}
+        hand.type = 'fullhouse'
+        console.log("cardsByRank = ",cardsByRank)
+        console.log("counts = ",counts)
+        hand.rank = cardsByRank[0].rank
+        hand.sideRank = cardsByRank[2].rank
+        hand.kickers = cardsByRank.filter((c) => c.rank !== hand.rank && c.rank !== hand.sideRank)
+        return hand
     }
     return makeSingleCard(cardsByRank)
 }
@@ -51,52 +71,6 @@ function makeSingleCard(cardsByRank) {
     hand.type = 'high'
     hand.rank = cardsByRank[0].rank
     hand.kickers = cardsByRank.filter((c) => c.rank !== hand.rank)
-    return hand
-}
-
-function makePair(cardsByRank) {
-    const hand = {}
-    hand.type = 'pair'
-    hand.rank = cardsByRank[0].rank
-    hand.kickers = cardsByRank.filter((c) => c.rank !== hand.rank)
-    return hand
-}
-
-function makeDoublePair(cardsByRank, counts) {
-    const hand = {}
-    hand.type = 'double'
-    console.log("cardsByRank = ",cardsByRank)
-    console.log("counts = ",counts)
-    hand.rank = cardsByRank[0].rank
-    hand.sideRank = cardsByRank[3].rank
-    hand.kickers = cardsByRank.filter((c) => c.rank !== hand.rank).filter((c) => c.rank !== hand.sideRank)
-    return hand
-}
-
-function makeThreeOfAKind(cardsByRank) {
-    const hand = {}
-    hand.type = 'three'
-    hand.rank = cardsByRank[0].rank
-    hand.kickers = cardsByRank.filter((c) => c.rank !== hand.rank)
-    return hand
-}
-
-function makeQuad(cardsByRank) {
-    const hand = {}
-    hand.type = 'quad'
-    hand.rank = cardsByRank[0].rank
-    hand.kickers = cardsByRank.filter((c) => c.rank !== hand.rank)
-    return hand
-}    
-
-function makeFullHouse(cardsByRank, counts) {
-    const hand = {}
-    hand.type = 'fullhouse'
-    console.log("cardsByRank = ",cardsByRank)
-    console.log("counts = ",counts)
-    hand.rank = cardsByRank[0].rank
-    hand.sideRank = cardsByRank[2].rank
-    hand.kickers = cardsByRank.filter((c) => c.rank !== hand.rank && c.rank !== hand.sideRank)
     return hand
 }
 
@@ -194,25 +168,21 @@ function isPair(counts) {
     }
     console.log(counts)
     return res
-
-//  function isFlush() { 
-//     let res = false
-//     let entries = Object.values(counts)
-//     entries.sort() 
-//     for(let entry of entries) {
-//         console.log("entries : ",entry)
-//     }
-    
-//     if (entries[0] === 5) {
-//         res = true
-//     }
-//     else {
-//         res = false
-//     }
-//     console.log(counts)
-//     return res
-//  }
-
 }
+
+//   function isFlush(counts) { 
+//      let res = false
+//      let entries = Object.values(counts)
+//      entries.sort() 
+//      if (entries[0] === 5) {
+//          res = true
+//      }
+//      else {
+//          res = false
+//      }
+//      console.log('Counts:', counts)
+//      return res
+//   }
+
 
 export { makeHand, byRank, isPair, isDoublePair, isThreeOfAKind, isFullHouse, isQuad}

@@ -17,7 +17,6 @@ describe('poker hands creation', () => {
         expect(cards.length).to.equal(5);
 
         const main = makeHand(cards);
-
         expect(main.type).to.equal('fullhouse');
         expect(main.rank).to.equal(10);
         expect(main.sideRank).to.equal(2);
