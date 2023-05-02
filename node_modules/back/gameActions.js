@@ -1,4 +1,4 @@
-import { buildDeck } from "shared/deck.js";
+import { buildDeck } from "./deck.js";
 
 function createGame(players) {
     let game = { started: false, players, deck: buildDeck(), dealer: null, currentPlayer: null, round: null }

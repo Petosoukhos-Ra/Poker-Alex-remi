@@ -1,11 +1,9 @@
 import { broadcast, createGame, dealAllPocketCards, dealTheCardsFlop, dealCardTurn, dealCardRiver ,getNextPlayer, listFreeSeats, removePlayer, roundIsOver, startGame, updateStack } from "./gameActions.js";
-import { findBestHand,compareHands } from "shared/handsComparator.js";
-import { makeHand } from "shared/handMaker.js";
+import { findBestHand,compareHands } from "./handsComparator.js";
+import { makeHand } from "./handMaker.js";
 
 let game;
 let seats = [...Array(4)]
-// dealTheCardsGame
-// dealTheCardsTurn
 let onConnect = (socket) => {
   console.log("connexion de ", socket.id);
 

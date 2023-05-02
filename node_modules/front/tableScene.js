@@ -31,14 +31,14 @@ class PokerTable extends Phaser.Scene {
         seats[4] = { x: 660, y: 550, cardsSprites: [] }
         this.seats = seats
 
-        let cartes = []
+        let cards = []
         cards[0] = { x: 360, y: 370, cardsSprite: [] }
         cards[1] = { x: 440, y: 370, cardsSprite: [] }
         cards[2] = { x: 520, y: 370, cardsSprite: [] }
 
         cards[3] = { x: 600, y: 370, cardsSprite: [] }
         cards[4] = { x: 680, y: 370, cardsSprite: [] }
-        this.cartes = cartes
+        this.cards = cards
 
         this.server = createServer(this)
     }
@@ -212,16 +212,16 @@ class PokerTable extends Phaser.Scene {
         this.sound.play("sonCarte");
         let scale = cardParams.opponentScale
         let card4 = this.createCard(cardTurn[0], scale)
-        this.cartes[3].cardsSprite = card4
-        this.dealCard(card4, this.cartes[3].x, this.cartes[3].y)
+        this.cards[3].cardsSprite = card4
+        this.dealCard(card4, this.cards[3].x, this.cards[3].y)
         }
 
     dealCardRiver(cardRiver) {
         this.sound.play("sonCarte");
         let scale = cardParams.opponentScale
         let card5 = this.createCard(cardRiver[0], scale)
-        this.cartes[4].cardsSprite = card5
-        this.dealCard(card5, this.cartes[4].x, this.cartes[4].y)
+        this.cards[4].cardsSprite = card5
+        this.dealCard(card5, this.cards[4].x, this.cards[4].y)
         }
 
         
