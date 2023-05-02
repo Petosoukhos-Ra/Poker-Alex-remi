@@ -21,8 +21,8 @@ forces['straightflush'] = 9
  *       1 : h1 is stronger than h2
  */
 function compareHands(h1, h2) {
-    const h1Rank = forces[h1.type];
-    const h2Rank = forces[h2.type];
+    const h1Rank = [h1];
+    const h2Rank = [h2];
   
     if (h1Rank > h2Rank) {
         return 1;
